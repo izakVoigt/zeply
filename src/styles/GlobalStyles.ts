@@ -7,4 +7,9 @@ export default createGlobalStyle`
     box-sizing: border-box;
     font-family: Roboto, sans-serif;
   }
+
+  body {
+    background-color: ${(props) => props.theme.colors.primary};
+    transition: 0.2s ease
+  }
 `;

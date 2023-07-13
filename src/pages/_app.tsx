@@ -11,9 +11,9 @@ const App = (): JSX.Element => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta charSet="utf-8" />
       </Head>
-      <GlobalStyles />
       <ToastContainer position="top-center" hideProgressBar={true} limit={1} />
       <CustomThemeProvider>
+        <GlobalStyles />
         <HomePage />
       </CustomThemeProvider>
     </>

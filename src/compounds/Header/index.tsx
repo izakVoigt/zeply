@@ -14,7 +14,7 @@ export const Header = (): JSX.Element => {
         <Logo />
         <Box sx={{ margin: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <ThemeSwitcher />
-          <Notification content={999} />
+          <Notification content={10} />
           <AvatarComponent />
         </Box>
       </Container>

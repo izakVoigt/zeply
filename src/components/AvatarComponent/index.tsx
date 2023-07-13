@@ -8,7 +8,11 @@ export const AvatarComponent = (): JSX.Element => {
     <Avatar
       alt="Avatar"
       role="img"
-      sx={{ color: themeContext.theme.colors.detail, backgroundColor: themeContext.theme.colors.primary }}
+      sx={{
+        color: themeContext.theme.colors.detail,
+        backgroundColor: themeContext.theme.colors.primary,
+        transition: '0.2s ease',
+      }}
     >
       Z
     </Avatar>

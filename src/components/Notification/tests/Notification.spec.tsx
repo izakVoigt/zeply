@@ -2,16 +2,16 @@ import { ThemeContext } from '@contexts/theme';
 import { render, screen } from '@testing-library/react';
 import { themeContextMock } from '@tests/contexts/themeContextMock';
 import { ThemeProvider } from 'styled-components';
-import { NotificationComponent } from '../index';
+import { Notification } from '../index';
 
-describe('NotificationComponent', () => {
+describe('Notification', () => {
   it('renders notification component with correct badge content and styles', () => {
     const notificationContent = 5;
 
     render(
       <ThemeContext.Provider value={themeContextMock}>
         <ThemeProvider theme={themeContextMock.theme}>
-          <NotificationComponent content={notificationContent} />
+          <Notification content={notificationContent} />
         </ThemeProvider>
       </ThemeContext.Provider>
     );

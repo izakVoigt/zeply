@@ -3,7 +3,7 @@ import { Badge } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { INotificationComponent } from './types';
 
-export const NotificationComponent = ({ content }: INotificationComponent): JSX.Element => {
+export const Notification = ({ content }: INotificationComponent): JSX.Element => {
   const themeContext = useTheme();
 
   return (

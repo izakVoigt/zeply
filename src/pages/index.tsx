@@ -1,5 +1,6 @@
 import { AvatarComponent } from '@components/AvatarComponent';
-import { NotificationComponent } from '@components/NotificationComponent';
+import { Logo } from '@components/Logo';
+import { Notification } from '@components/Notification';
 import { NextPage } from 'next';
 
 const HomePage: NextPage = () => {
@@ -7,7 +8,8 @@ const HomePage: NextPage = () => {
     <div>
       Hello World
       <AvatarComponent />
-      <NotificationComponent content={999} />
+      <Notification content={999} />
+      <Logo />
     </div>
   );
 };

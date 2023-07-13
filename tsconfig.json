@@ -21,6 +21,7 @@
     ],
     "paths": {
       "@components/*": ["./src/components/*"],
+      "@compounds/*": ["./src/compounds/*"],
       "@contexts/*": ["./src/contexts/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@interfaces/*": ["./src/interfaces/*"],

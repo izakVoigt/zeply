@@ -9,6 +9,7 @@ export const AvatarComponent = (): JSX.Element => {
       alt="Avatar"
       role="img"
       sx={{
+        margin: '0 10px',
         color: themeContext.theme.colors.detail,
         backgroundColor: themeContext.theme.colors.primary,
         transition: '0.2s ease',

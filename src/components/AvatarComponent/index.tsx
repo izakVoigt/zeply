@@ -1,7 +1,7 @@
 import { useTheme } from '@hooks/useTheme';
 import { Avatar } from '@mui/material';
 
-export const AvatarComponent = () => {
+export const AvatarComponent = (): JSX.Element => {
   const themeContext = useTheme();
 
   return (

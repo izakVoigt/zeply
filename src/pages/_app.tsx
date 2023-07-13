@@ -1,4 +1,5 @@
-import GlobalStyles from '@/styles/GlobalStyles';
+import { CustomThemeProvider } from '@contexts/theme';
+import GlobalStyles from '@styles/GlobalStyles';
 import Head from 'next/head';
 import { ToastContainer } from 'react-toastify';
 import HomePage from '.';
@@ -12,7 +13,9 @@ const App = (): JSX.Element => {
       </Head>
       <GlobalStyles />
       <ToastContainer position="top-center" hideProgressBar={true} limit={1} />
-      <HomePage />
+      <CustomThemeProvider>
+        <HomePage />
+      </CustomThemeProvider>
     </>
   );
 };

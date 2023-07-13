@@ -6,7 +6,7 @@ export const DataContainer = ({ children }: IDataContainer) => {
     <Box
       sx={{
         width: '60%',
-        height: '200px',
+        height: '250px',
         padding: '10px',
         display: 'flex',
         alignItems: 'center',

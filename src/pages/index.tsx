@@ -2,7 +2,7 @@ import { DataContainer } from '@components/DataContainer';
 import { Search } from '@components/Search';
 import { TabsContainer } from '@components/TabsContainer';
 import { Header } from '@compounds/Header';
-import { Container } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { NextPage } from 'next';
 import { ChangeEvent, useState } from 'react';
 
@@ -30,13 +30,23 @@ const HomePage: NextPage = () => {
               onClick={handleAddressSearchClick}
             />
             <DataContainer>
-              <div>
-                <p>Confirmed Transactions: 10</p>
-                <p>Total BTC Received: 155</p>
-                <p>Total BTC Spent: 150</p>
-                <p>Total BTC Unspent: 5</p>
-                <p>Current address balance: 10</p>
-              </div>
+              <Box>
+                <Typography>
+                  <strong>Confirmed Transactions:</strong>
+                </Typography>
+                <Typography>
+                  <strong>Total BTC Received:</strong>
+                </Typography>
+                <Typography>
+                  <strong>Total BTC Spent:</strong>
+                </Typography>
+                <Typography>
+                  <strong>Total BTC Unspent:</strong>
+                </Typography>
+                <Typography>
+                  <strong>Current address balance:</strong>
+                </Typography>
+              </Box>
               <div>Subscribe</div>
             </DataContainer>
           </>
@@ -47,16 +57,32 @@ const HomePage: NextPage = () => {
               onClick={handleTransactionSearchClick}
             />
             <DataContainer>
-              <div>
-                <p>Transactions Hash: 10</p>
-                <p>Received Time: 155</p>
-                <p>Status: 150</p>
-                <p>Size (in bytes): 5</p>
-                <p>Number of Confirmations: 10</p>
-                <p>Total BTC Input: 10</p>
-                <p>Total BTC Output: 10</p>
-                <p>Total Fees: 10</p>
-              </div>
+              <Box>
+                <Typography>
+                  <strong>Transactions Hash:</strong>
+                </Typography>
+                <Typography>
+                  <strong>Received Time:</strong>
+                </Typography>
+                <Typography>
+                  <strong>Status:</strong>
+                </Typography>
+                <Typography>
+                  <strong>Size (in bytes):</strong>
+                </Typography>
+                <Typography>
+                  <strong>Number of Confirmations:</strong>
+                </Typography>
+                <Typography>
+                  <strong>Total BTC Input:</strong>
+                </Typography>
+                <Typography>
+                  <strong>Total BTC Output:</strong>
+                </Typography>
+                <Typography>
+                  <strong>Total Fees:</strong>
+                </Typography>
+              </Box>
             </DataContainer>
           </>
         </TabsContainer>

@@ -2,7 +2,9 @@ import { DataContainer } from '@components/DataContainer';
 import { Search } from '@components/Search';
 import { TabsContainer } from '@components/TabsContainer';
 import { Header } from '@compounds/Header';
+import { useBtc } from '@hooks/useBtc';
 import { Box, Container, Typography } from '@mui/material';
+import { getAddress, getTransaction } from '@services/api';
 import { NextPage } from 'next';
 import { ChangeEvent, useState } from 'react';
 
@@ -10,12 +12,24 @@ const HomePage: NextPage = () => {
   const [addressSearch, setAddressSearch] = useState('');
   const [transactionSearch, setTransactionSearch] = useState('');
 
-  const handleAddressSearchClick = () => {
-    console.log(addressSearch);
+  const btcContext = useBtc();
+
+  const handleAddressSearchClick = async () => {
+    try {
+      const data = await getAddress(addressSearch);
+
+      btcContext.updateAddress(data!);
+      console.log(btcContext.address);
+    } catch (error) {}
   };
 
-  const handleTransactionSearchClick = () => {
-    console.log(transactionSearch);
+  const handleTransactionSearchClick = async () => {
+    try {
+      const data = await getTransaction(transactionSearch);
+
+      btcContext.updateTransaction(data!.data, data!.time);
+      console.log(btcContext.transaction);
+    } catch (error) {}
   };
 
   return (
@@ -32,19 +46,24 @@ const HomePage: NextPage = () => {
             <DataContainer>
               <Box>
                 <Typography>
-                  <strong>Confirmed Transactions:</strong>
+                  <strong>Confirmed Transactions: </strong>
+                  {btcContext.address?.numberTransactions}
                 </Typography>
                 <Typography>
-                  <strong>Total BTC Received:</strong>
+                  <strong>Total BTC Received: </strong>
+                  {btcContext.address?.btcReceived}
                 </Typography>
                 <Typography>
-                  <strong>Total BTC Spent:</strong>
+                  <strong>Total BTC Spent: </strong>
+                  {btcContext.address?.btcSpent}
                 </Typography>
                 <Typography>
-                  <strong>Total BTC Unspent:</strong>
+                  <strong>Total BTC Unspent: </strong>
+                  {btcContext.address?.btcUnspent}
                 </Typography>
                 <Typography>
-                  <strong>Current address balance:</strong>
+                  <strong>Current address balance: </strong>
+                  {btcContext.address?.finalBalance}
                 </Typography>
               </Box>
               <div>Subscribe</div>

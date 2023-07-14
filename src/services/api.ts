@@ -22,7 +22,7 @@ export const getTransaction = async (transaction: string) => {
   try {
     const response = await api.get<ITransaction>(`/rawtx/${transaction}`);
 
-    return response.data;
+    return { data: response.data, time: new Date() };
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data) {
       toast.error(error.response.data.message);

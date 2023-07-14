@@ -6,4 +6,6 @@ export interface BtcContextData {
   updateTransaction: (transaction: ITransaction, time: Date) => void;
   address?: IBtcAddress;
   transaction?: IBtcTransaction;
+  BTCtoUSD?: number;
+  BTCtoEUR?: number;
 }

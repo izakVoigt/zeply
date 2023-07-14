@@ -1,13 +1,16 @@
 import { IBtcAddress, IBtcTransaction } from '@interfaces/btc';
 import { BtcContextData } from '@interfaces/btcContextData';
+import { getBTCtoEUR, getBTCtoUSD } from '@services/api';
 import { IAddress, ITransaction } from '@services/types';
-import { ReactNode, createContext, useCallback, useState } from 'react';
+import { ReactNode, createContext, useCallback, useEffect, useState } from 'react';
 
 export const BtcContext = createContext<BtcContextData>({} as BtcContextData);
 
 export const BtcContextProvider = ({ children }: { children: ReactNode }) => {
   const [address, setAddress] = useState<IBtcAddress>();
   const [transaction, setTransaction] = useState<IBtcTransaction>();
+  const [BTCtoUSD, setBTCtoUSD] = useState<number>();
+  const [BTCtoEUR, setBTCtoEUR] = useState<number>();
 
   const updateAddress = useCallback((address: IAddress) => {
     setAddress({
@@ -32,8 +35,24 @@ export const BtcContextProvider = ({ children }: { children: ReactNode }) => {
     });
   }, []);
 
+  useEffect(() => {
+    const fetchBTCValues = async () => {
+      try {
+        const usdValue = await getBTCtoUSD();
+        const eurValue = await getBTCtoEUR();
+
+        setBTCtoUSD(usdValue);
+        setBTCtoEUR(eurValue);
+      } catch (error) {
+        console.error('Error fetching BTC values:', error);
+      }
+    };
+
+    fetchBTCValues();
+  }, []);
+
   return (
-    <BtcContext.Provider value={{ address, transaction, updateAddress, updateTransaction }}>
+    <BtcContext.Provider value={{ address, transaction, BTCtoEUR, BTCtoUSD, updateAddress, updateTransaction }}>
       {children}
     </BtcContext.Provider>
   );

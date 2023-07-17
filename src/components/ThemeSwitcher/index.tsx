@@ -1,5 +1,5 @@
 import { useTheme } from '@hooks/useTheme';
-import { ThemeSwitchStyled } from './styles';
+import { ThemeSwitchStyled } from '@styles/material-ui/ThemeSwitch';
 
 export const ThemeSwitcher = (): JSX.Element => {
   const themeContext = useTheme();

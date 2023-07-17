@@ -2,6 +2,7 @@ import { DataContainer } from '@components/DataContainer';
 import { Search } from '@components/Search';
 import { TabsContainer } from '@components/TabsContainer';
 import { Header } from '@compounds/Header';
+import { TopSearches } from '@compounds/TopSearches';
 import { useBtc } from '@hooks/useBtc';
 import { useMain } from '@hooks/useMain';
 import { useNotifications } from '@hooks/useNotifications';
@@ -43,6 +44,9 @@ const HomePage: NextPage = () => {
   return (
     <>
       <Header />
+      <Container sx={{ padding: '10px' }}>
+        <TopSearches />
+      </Container>
       <Container sx={{ padding: '10px' }}>
         <TabsContainer labels={['address', 'transaction']}>
           <>

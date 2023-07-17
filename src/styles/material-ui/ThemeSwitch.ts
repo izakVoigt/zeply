@@ -1,6 +1,6 @@
 import { Switch, styled } from '@mui/material';
 
-export const ThemeSwitchStyled = styled(Switch)(({ theme }) => ({
+export const ThemeSwitchStyled = styled(Switch)(() => ({
   width: 56,
   height: 28,
   padding: 7,
@@ -10,7 +10,7 @@ export const ThemeSwitchStyled = styled(Switch)(({ theme }) => ({
     transform: 'translateX(6px)',
     '&.Mui-checked': {
       color: '#fff',
-      transform: 'translateX(23px)',
+      transform: 'translateX(24px)',
       '& .MuiSwitch-thumb:before': {
         backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="15" width="15" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
           '#fff'

@@ -1,18 +1,19 @@
-import { ThemeContext } from '@contexts/theme';
+import { NotificationsContext, ThemeContext } from '@contexts';
 import { render, screen } from '@testing-library/react';
 import { themeContextMock } from '@tests/contexts/themeContextMock';
-import { ThemeProvider } from 'styled-components';
+import { notificationsContextMock } from '@tests/contexts/notificationsContextMock';
 import { Notification } from '../index';
+import { faker } from '@faker-js/faker';
 
 describe('Notification', () => {
-  it('renders notification component with correct badge content and styles', () => {
-    const notificationContent = 5;
+  it('should render notification component with correct badge content and styles', () => {
+    const notificationContent = faker.number.int({ max: 998 });
 
     render(
       <ThemeContext.Provider value={themeContextMock}>
-        <ThemeProvider theme={themeContextMock.theme}>
+        <NotificationsContext.Provider value={notificationsContextMock}>
           <Notification content={notificationContent} />
-        </ThemeProvider>
+        </NotificationsContext.Provider>
       </ThemeContext.Provider>
     );
 

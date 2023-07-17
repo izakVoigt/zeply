@@ -4,6 +4,7 @@ import { IChildren } from '@interfaces/index';
 export const DataContainer = ({ children }: IChildren) => {
   return (
     <Box
+      data-testid="data-container"
       sx={{
         width: '60%',
         height: '250px',

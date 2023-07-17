@@ -17,6 +17,9 @@ describe('AvatarComponent', () => {
     const avatarElement = screen.getByRole('img');
 
     expect(avatarElement).toBeInTheDocument();
-    expect(avatarElement).toHaveStyle({ color: 'black', backgroundColor: 'blue' });
+    expect(avatarElement).toHaveStyle({
+      color: themeContextMock.theme.colors.detail,
+      backgroundColor: themeContextMock.theme.colors.primary,
+    });
   });
 });

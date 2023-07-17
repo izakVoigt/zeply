@@ -6,8 +6,8 @@ import { INotificationComponent } from './types';
 
 export const Notification = ({ content }: INotificationComponent): JSX.Element => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const themeContext = useTheme();
 
+  const themeContext = useTheme();
   const notificationsContext = useNotifications();
 
   const menuAnchor = useRef<HTMLElement | null>(null);

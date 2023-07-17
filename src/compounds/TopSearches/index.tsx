@@ -23,6 +23,7 @@ export const TopSearches = () => {
   return (
     <Container
       sx={{
+        margin: '10px',
         padding: '10px',
         minHeight: '200px',
         display: 'flex',

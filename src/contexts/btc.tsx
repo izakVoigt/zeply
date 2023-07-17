@@ -1,6 +1,7 @@
 import { IAddress, IBtcAddress, IBtcTransaction, IChildren, ITransaction } from '@interfaces/index';
 import { BtcContextData } from '@interfaces/contexts/index';
 import { createContext, useCallback, useState } from 'react';
+import { CurrencyEnum } from '@utils/enums/currencyEnum';
 
 export const BtcContext = createContext<BtcContextData>({} as BtcContextData);
 
@@ -8,9 +9,11 @@ export const BtcContextProvider = ({ children }: IChildren) => {
   const [searches, setSearches] = useState<string[]>([]);
   const [address, setAddress] = useState<IBtcAddress | undefined>();
   const [transaction, setTransaction] = useState<IBtcTransaction | undefined>();
+  const [currency, setCurrency] = useState<CurrencyEnum>(CurrencyEnum.BTC);
 
   const updateAddress = useCallback((address: IAddress, hash: string) => {
     setAddress({
+      hash,
       btcReceived: address.total_received,
       btcSpent: address.total_sent,
       btcUnspent: address.total_received - address.total_sent,
@@ -34,8 +37,14 @@ export const BtcContextProvider = ({ children }: IChildren) => {
     setSearches((prevSearches) => [...prevSearches, hash]);
   }, []);
 
+  const updateCurrency = useCallback((currency: string) => {
+    setCurrency(CurrencyEnum[currency.toUpperCase()]);
+  }, []);
+
   return (
-    <BtcContext.Provider value={{ searches, address, transaction, updateAddress, updateTransaction }}>
+    <BtcContext.Provider
+      value={{ searches, address, transaction, currency, updateAddress, updateTransaction, updateCurrency }}
+    >
       {children}
     </BtcContext.Provider>
   );

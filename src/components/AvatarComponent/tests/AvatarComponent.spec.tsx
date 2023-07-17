@@ -1,4 +1,4 @@
-import { ThemeContext } from '@contexts/theme';
+import { ThemeContext } from '@contexts';
 import { render, screen } from '@testing-library/react';
 import { themeContextMock } from '@tests/contexts/themeContextMock';
 import { ThemeProvider } from 'styled-components';

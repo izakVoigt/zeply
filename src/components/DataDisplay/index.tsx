@@ -17,6 +17,7 @@ export const DataDisplay = ({ index, hash }: IDataDisplay) => {
         flexDirection: 'column',
         backgroundColor: themeContext.theme.colors.primary,
         border: `1px solid ${themeContext.theme.colors.detail}`,
+        color: themeContext.theme.colors.fontDefault,
         borderRadius: '5px',
         transition: '0.2s ease',
       }}

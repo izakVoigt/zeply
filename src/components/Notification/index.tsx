@@ -13,7 +13,9 @@ export const Notification = ({ content }: INotificationComponent): JSX.Element =
   const menuAnchor = useRef<HTMLElement | null>(null);
 
   const handleMenuOpen = () => {
-    setMenuOpen(true);
+    if (notificationsContext.notifications.length > 0) {
+      setMenuOpen(true);
+    }
   };
 
   const handleMenuClose = () => {
@@ -22,7 +24,7 @@ export const Notification = ({ content }: INotificationComponent): JSX.Element =
 
   return (
     <>
-      <Badge role="alert" color="primary" badgeContent={content} max={999} sx={{ margin: '0 10px' }}>
+      <Badge role="alert" color="primary" badgeContent={content} max={999} sx={{ margin: '0 10px' }} ref={menuAnchor}>
         <IconButton onClick={handleMenuOpen}>
           <NotificationsIcon sx={{ color: themeContext.theme.colors.detail, width: '30px', height: '30px' }} />
         </IconButton>
@@ -31,7 +33,7 @@ export const Notification = ({ content }: INotificationComponent): JSX.Element =
       <Menu anchorEl={menuAnchor.current} open={menuOpen} onClose={handleMenuClose}>
         {notificationsContext.notifications.map((notification, index) => (
           <MenuItem key={index}>
-            <ListItemText primary={notification} />
+            <ListItemText primary={`New transaction at hash ${notification}`} />
           </MenuItem>
         ))}
       </Menu>

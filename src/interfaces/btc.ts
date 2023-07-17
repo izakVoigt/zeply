@@ -1,4 +1,5 @@
 export interface IBtcAddress {
+  hash: string;
   btcReceived: number;
   btcSpent: number;
   btcUnspent: number;

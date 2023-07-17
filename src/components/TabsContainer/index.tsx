@@ -18,6 +18,8 @@ export const TabsContainer = ({ labels, children }: ITabsContainer) => {
         value={currentTab}
         onChange={handleTabChange}
         sx={{
+          marginTop: '10px',
+          width: '100%',
           backgroundColor: themeContext.theme.colors.secundary,
           transition: '0.2s ease',
           borderTopLeftRadius: '10px',
@@ -36,6 +38,7 @@ export const TabsContainer = ({ labels, children }: ITabsContainer) => {
         <Box
           key={index}
           sx={{
+            width: '100%',
             display: currentTab === index ? 'flex' : 'none',
             alignItems: 'center',
             justifyContent: 'center',

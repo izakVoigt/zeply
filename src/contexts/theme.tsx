@@ -1,12 +1,12 @@
-import { ThemesContextData } from '@interfaces/contexts/themesContextData';
-import { IThemes } from '@interfaces/themes';
+import { IChildren, IThemes } from '@interfaces/index';
+import { ThemesContextData } from '@interfaces/contexts/index';
 import { darkTheme, lightTheme } from '@styles/Themes';
-import { ReactNode, createContext, useCallback, useState } from 'react';
+import { createContext, useCallback, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 
 export const ThemeContext = createContext<ThemesContextData>({} as ThemesContextData);
 
-export const CustomThemeProvider = ({ children }: { children: ReactNode }) => {
+export const CustomThemeProvider = ({ children }: IChildren) => {
   const [theme, setTheme] = useState<IThemes>(lightTheme);
 
   const toggleTheme = useCallback(() => {

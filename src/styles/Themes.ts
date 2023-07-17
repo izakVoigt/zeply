@@ -1,4 +1,4 @@
-import { IThemes } from '@interfaces/themes';
+import { IThemes } from '@interfaces/index';
 
 export const darkTheme: IThemes = {
   name: 'dark',

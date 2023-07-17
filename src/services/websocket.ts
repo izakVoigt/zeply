@@ -1,6 +1,6 @@
 import { errorHandler } from '@utils/errorHandler';
 
-const connectWebsocket = (onConnect: (connection: WebSocket) => void): WebSocket => {
+export const connectWebsocket = (onConnect: (connection: WebSocket) => void): WebSocket => {
   const client = new WebSocket('wss://ws.blockchain.info/inv');
 
   client.onopen = () => {
@@ -13,5 +13,3 @@ const connectWebsocket = (onConnect: (connection: WebSocket) => void): WebSocket
 
   return client;
 };
-
-export default connectWebsocket;

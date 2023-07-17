@@ -1,5 +1,4 @@
-import { IInputWebsocket } from './input';
-import { IOutputWebsocket } from './output';
+import { IInputWebsocket, IOutputWebsocket } from '.';
 
 export interface IAddress {
   hash58?: string;

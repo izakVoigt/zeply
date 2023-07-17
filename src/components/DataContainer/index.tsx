@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { IChildren } from '@interfaces/children';
+import { IChildren } from '@interfaces/index';
 
 export const DataContainer = ({ children }: IChildren) => {
   return (

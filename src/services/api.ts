@@ -1,5 +1,4 @@
-import { ITransaction } from '@interfaces/transaction';
-import { IAddress } from '@interfaces/address';
+import { IAddress, ITransaction } from '@interfaces/index';
 import { errorHandler } from '@utils/errorHandler';
 import axios from 'axios';
 

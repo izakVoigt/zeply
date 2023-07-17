@@ -1,5 +1,4 @@
-import { IInput } from './input';
-import { IOutput } from './output';
+import { IInput, IOutput } from '.';
 
 export interface ITransaction {
   hash: string;

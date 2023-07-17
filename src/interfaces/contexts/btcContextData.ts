@@ -1,6 +1,4 @@
-import { IAddress } from '../address';
-import { ITransaction } from '../transaction';
-import { IBtcAddress, IBtcTransaction } from '../btc';
+import { IAddress, IBtcAddress, IBtcTransaction, ITransaction } from '..';
 
 export interface BtcContextData {
   searches: string[];

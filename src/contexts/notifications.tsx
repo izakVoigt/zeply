@@ -1,11 +1,11 @@
-import { useMain } from '@hooks/useMain';
-import { IAddressWebsocket } from '@interfaces/address';
-import { NotificationsContextData } from '@interfaces/contexts/notificationsContextData';
-import { ReactNode, createContext, useCallback, useEffect, useState } from 'react';
+import { useMain } from '@hooks';
+import { IAddressWebsocket, IChildren } from '@interfaces/index';
+import { NotificationsContextData } from '@interfaces/contexts/index';
+import { createContext, useCallback, useEffect, useState } from 'react';
 
 export const NotificationsContext = createContext<NotificationsContextData>({} as NotificationsContextData);
 
-export const NotificationsContextProvider = ({ children }: { children: ReactNode }) => {
+export const NotificationsContextProvider = ({ children }: IChildren) => {
   const [state, setState] = useState<{ addresses: string[]; notifications: string[] }>({
     addresses: [],
     notifications: [],
@@ -35,7 +35,6 @@ export const NotificationsContextProvider = ({ children }: { children: ReactNode
     (hash: string) => {
       if (mainContext.connection) {
         mainContext.connection.send(JSON.stringify({ op: 'addr_sub', addr: hash }));
-
         setState((prevState) => ({ ...prevState, addresses: [...prevState.addresses, hash] }));
       }
     },
@@ -46,7 +45,6 @@ export const NotificationsContextProvider = ({ children }: { children: ReactNode
     (hash: string) => {
       if (mainContext.connection) {
         mainContext.connection.send(JSON.stringify({ op: 'addr_unsub', addr: hash }));
-
         setState((prevState) => ({
           ...prevState,
           addresses: prevState.addresses.filter((address) => address !== hash),

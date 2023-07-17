@@ -1,7 +1,6 @@
 import { DataDisplay } from '@components/DataDisplay';
-import { useBtc } from '@hooks/useBtc';
-import { useTheme } from '@hooks/useTheme';
-import { Box, Container, Typography } from '@mui/material';
+import { useBtc, useTheme } from '@hooks';
+import { Box, Container } from '@mui/material';
 import { TitlesStyled } from '@styles/material-ui/Titles';
 
 export const TopSearches = () => {

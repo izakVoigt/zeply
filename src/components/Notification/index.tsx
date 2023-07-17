@@ -1,5 +1,4 @@
-import { useNotifications } from '@hooks/useNotifications';
-import { useTheme } from '@hooks/useTheme';
+import { useNotifications, useTheme } from '@hooks';
 import { Badge, Menu, MenuItem, ListItemText, IconButton } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useRef, useState } from 'react';
@@ -13,7 +12,7 @@ export const Notification = ({ content }: INotificationComponent): JSX.Element =
 
   const menuAnchor = useRef<HTMLElement | null>(null);
 
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+  const handleMenuOpen = () => {
     setMenuOpen(true);
   };
 

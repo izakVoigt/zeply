@@ -1,4 +1,4 @@
-import { useTheme } from '@hooks/useTheme';
+import { useTheme } from '@hooks';
 import { Typography } from '@mui/material';
 
 export const Logo = (): JSX.Element => {

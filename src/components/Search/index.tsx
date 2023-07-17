@@ -1,4 +1,4 @@
-import { useTheme } from '@hooks/useTheme';
+import { useTheme } from '@hooks';
 import SearchIcon from '@mui/icons-material/Search';
 import { Box, IconButton, TextField } from '@mui/material';
 import { ISearch } from './types';

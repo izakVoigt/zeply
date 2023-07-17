@@ -1,6 +1,6 @@
+import { useTheme } from '@hooks';
 import { Box, Typography } from '@mui/material';
 import { IDataDisplay } from './types';
-import { useTheme } from '@hooks/useTheme';
 
 export const DataDisplay = ({ index, hash }: IDataDisplay) => {
   const themeContext = useTheme();

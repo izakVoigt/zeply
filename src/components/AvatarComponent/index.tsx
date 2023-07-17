@@ -1,4 +1,4 @@
-import { useTheme } from '@hooks/useTheme';
+import { useTheme } from '@hooks';
 import { Avatar } from '@mui/material';
 
 export const AvatarComponent = (): JSX.Element => {

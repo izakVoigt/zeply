@@ -2,8 +2,7 @@ import { AvatarComponent } from '@components/AvatarComponent';
 import { Logo } from '@components/Logo';
 import { Notification } from '@components/Notification';
 import { ThemeSwitcher } from '@components/ThemeSwitcher';
-import { useNotifications } from '@hooks/useNotifications';
-import { useTheme } from '@hooks/useTheme';
+import { useNotifications, useTheme } from '@hooks';
 import { AppBar, Box, Container } from '@mui/material';
 
 export const Header = (): JSX.Element => {

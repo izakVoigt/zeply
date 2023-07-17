@@ -1,7 +1,7 @@
+import { useTheme } from '@hooks';
 import { Box, Tab, Tabs } from '@mui/material';
 import { ChangeEvent, useState } from 'react';
 import { ITabsContainer } from './types';
-import { useTheme } from '@hooks/useTheme';
 
 export const TabsContainer = ({ labels, children }: ITabsContainer) => {
   const [currentTab, setCurrentTab] = useState(0);

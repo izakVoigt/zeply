@@ -22,11 +22,11 @@
     "paths": {
       "@components/*": ["./src/components/*"],
       "@compounds/*": ["./src/compounds/*"],
-      "@contexts/*": ["./src/contexts/*"],
-      "@hooks/*": ["./src/hooks/*"],
+      "@contexts": ["./src/contexts/index"],
+      "@hooks": ["./src/hooks/index"],
       "@interfaces/*": ["./src/interfaces/*"],
       "@pages/*": ["./src/pages/*"],
-      "@services/*": ["./src/services/*"],
+      "@services": ["./src/services/index"],
       "@styles/*": ["./src/styles/*"],
       "@tests/*": ["./src/__tests__/*"],
       "@utils/*": ["./src/utils/*"]

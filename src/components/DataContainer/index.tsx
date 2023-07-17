@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
-import { IDataContainer } from './types';
+import { IChildren } from '@interfaces/children';
 
-export const DataContainer = ({ children }: IDataContainer) => {
+export const DataContainer = ({ children }: IChildren) => {
   return (
     <Box
       sx={{

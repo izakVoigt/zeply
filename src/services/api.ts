@@ -1,11 +1,11 @@
+import { ITransaction } from '@interfaces/transaction';
+import { IAddress } from '@interfaces/address';
+import { errorHandler } from '@utils/errorHandler';
 import axios from 'axios';
-import { toast } from 'react-toastify';
-import { IAddress, ITransaction } from './types';
-import { CurrencyEnum } from '@utils/enums/currencyEnum';
 
-const apiBlockchain = axios.create({ baseURL: 'https://blockchain.info' });
+const apiBlockchain = axios.create({ baseURL: process.env.NEXT_APP_BLOCKCHAIN_API });
 
-const apiCoinMarket = axios.create({ baseURL: 'https://api.coingecko.com/api/v3' });
+const apiCoinMarket = axios.create({ baseURL: process.env.NEXT_APP_COINMARKET_API });
 
 export const getAddress = async (address: string) => {
   try {
@@ -13,11 +13,7 @@ export const getAddress = async (address: string) => {
 
     return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response?.data) {
-      toast.error(error.response.data.message);
-    } else {
-      toast.error('Unexpected error');
-    }
+    errorHandler(error);
   }
 };
 
@@ -27,11 +23,7 @@ export const getTransaction = async (transaction: string) => {
 
     return { data: response.data, time: new Date() };
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response?.data) {
-      toast.error(error.response.data.message);
-    } else {
-      toast.error('Unexpected error');
-    }
+    errorHandler(error);
   }
 };
 
@@ -45,11 +37,7 @@ export const getBTCtoEUR = async () => {
 
     return eurValue;
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response?.data) {
-      toast.error(error.response.data.message);
-    } else {
-      toast.error('Unexpected error');
-    }
+    errorHandler(error);
   }
 };
 
@@ -63,10 +51,6 @@ export const getBTCtoUSD = async () => {
 
     return usdValue;
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response?.data) {
-      toast.error(error.response.data.message);
-    } else {
-      toast.error('Unexpected error');
-    }
+    errorHandler(error);
   }
 };

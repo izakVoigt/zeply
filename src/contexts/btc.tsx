@@ -1,58 +1,66 @@
+import { IAddress, IAddressWebsocket } from '@interfaces/address';
 import { IBtcAddress, IBtcTransaction } from '@interfaces/btc';
-import { BtcContextData } from '@interfaces/btcContextData';
-import { getBTCtoEUR, getBTCtoUSD } from '@services/api';
-import { IAddress, ITransaction } from '@services/types';
-import { ReactNode, createContext, useCallback, useEffect, useState } from 'react';
+import { IChildren } from '@interfaces/children';
+import { BtcContextData } from '@interfaces/contexts/btcContextData';
+import { ITransaction } from '@interfaces/transaction';
+import { createContext, useCallback, useEffect, useState } from 'react';
 
 export const BtcContext = createContext<BtcContextData>({} as BtcContextData);
 
-export const BtcContextProvider = ({ children }: { children: ReactNode }) => {
+export const BtcContextProvider = ({ children }: IChildren) => {
+  const [searches, setSearches] = useState<string[]>([]);
   const [address, setAddress] = useState<IBtcAddress>();
   const [transaction, setTransaction] = useState<IBtcTransaction>();
-  const [BTCtoUSD, setBTCtoUSD] = useState<number>();
-  const [BTCtoEUR, setBTCtoEUR] = useState<number>();
 
-  const updateAddress = useCallback((address: IAddress) => {
-    setAddress({
-      btcReceived: address.total_received,
-      btcSpent: address.total_sent,
-      btcUnspent: address.total_received - address.total_sent,
-      finalBalance: address.final_balance,
-      numberTransactions: address.n_tx,
-    });
-  }, []);
+  const updateAddress = useCallback(
+    (address: IAddress, hash: string) => {
+      setAddress({
+        btcReceived: address.total_received,
+        btcSpent: address.total_sent,
+        btcUnspent: address.total_received - address.total_sent,
+        finalBalance: address.final_balance,
+        numberTransactions: address.n_tx,
+      });
+      setSearches([...searches, hash]);
+    },
+    [searches]
+  );
 
-  const updateTransaction = useCallback((transaction: ITransaction, time: Date) => {
-    setTransaction({
-      confirmations: transaction.block_height !== null ? transaction.block_height : 0,
-      hash: transaction.hash,
-      inputs: transaction.inputs.reduce((total: number, input: any) => total + parseInt(input.prev_out.value), 0),
-      outputs: transaction.out.reduce((total: number, output: any) => total + parseInt(output.value), 0),
-      size: transaction.size,
-      status: transaction.block_height !== null ? 'Confirmed' : 'Unconfirmed',
-      fees: transaction.inputs.reduce((total: number, input: any) => total - parseInt(input.prev_out.value), 0),
-      receivedTime: time,
-    });
-  }, []);
+  const updateTransaction = useCallback(
+    (transaction: ITransaction, time: Date, hash: string) => {
+      setTransaction({
+        confirmations: transaction.block_height !== null ? transaction.block_height : 0,
+        hash: transaction.hash,
+        inputs: transaction.inputs.reduce((total: number, input: any) => total + parseInt(input.prev_out.value), 0),
+        outputs: transaction.out.reduce((total: number, output: any) => total + parseInt(output.value), 0),
+        size: transaction.size,
+        status: transaction.block_height !== null ? 'Confirmed' : 'Unconfirmed',
+        fees: transaction.inputs.reduce((total: number, input: any) => total - parseInt(input.prev_out.value), 0),
+        receivedTime: time,
+      });
+      setSearches([...searches, hash]);
+    },
+    [searches]
+  );
 
-  useEffect(() => {
-    const fetchBTCValues = async () => {
-      try {
-        const usdValue = await getBTCtoUSD();
-        const eurValue = await getBTCtoEUR();
+  // useEffect(() => {
+  //   const handleWebSocketMessage = (message: JSON) => {
+  //     const messageData: IAddressWebsocket = JSON.parse(String(message));
 
-        setBTCtoUSD(usdValue);
-        setBTCtoEUR(eurValue);
-      } catch (error) {
-        console.error('Error fetching BTC values:', error);
-      }
-    };
+  //     if (messageData.op === 'utx') {
+  //       setTransactions((prevTransactions) => [...prevTransactions, messageData.x.hash]);
+  //     }
+  //   };
 
-    fetchBTCValues();
-  }, []);
+  //   const client = connectWebsocket(handleWebSocketMessage);
+
+  //   return () => {
+  //     client.abort();
+  //   };
+  // }, []);
 
   return (
-    <BtcContext.Provider value={{ address, transaction, BTCtoEUR, BTCtoUSD, updateAddress, updateTransaction }}>
+    <BtcContext.Provider value={{ searches, address, transaction, updateAddress, updateTransaction }}>
       {children}
     </BtcContext.Provider>
   );

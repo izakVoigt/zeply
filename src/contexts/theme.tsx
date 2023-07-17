@@ -1,4 +1,4 @@
-import { ThemesContextData } from '@interfaces/themesContextData';
+import { ThemesContextData } from '@interfaces/contexts/themesContextData';
 import { IThemes } from '@interfaces/themes';
 import { darkTheme, lightTheme } from '@styles/Themes';
 import { ReactNode, createContext, useCallback, useState } from 'react';

@@ -1,4 +1,6 @@
 import { BtcContextProvider } from '@contexts/btc';
+import { MainContextProvider } from '@contexts/main';
+import { NotificationsContextProvider } from '@contexts/notifications';
 import { CustomThemeProvider } from '@contexts/theme';
 import GlobalStyles from '@styles/GlobalStyles';
 import Head from 'next/head';
@@ -16,9 +18,13 @@ const App = (): JSX.Element => {
       <CustomThemeProvider>
         <ToastContainer />
         <GlobalStyles />
-        <BtcContextProvider>
-          <HomePage />
-        </BtcContextProvider>
+        <MainContextProvider>
+          <BtcContextProvider>
+            <NotificationsContextProvider>
+              <HomePage />
+            </NotificationsContextProvider>
+          </BtcContextProvider>
+        </MainContextProvider>
       </CustomThemeProvider>
     </>
   );

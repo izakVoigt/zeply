@@ -1,4 +1,4 @@
-import { IThemes } from './themes';
+import { IThemes } from '../themes';
 
 export interface ThemesContextData {
   toggleTheme: () => void;

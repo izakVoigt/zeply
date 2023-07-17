@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
 
-export interface IDataContainer {
+export interface IChildren {
   children?: ReactNode | ReactNode[];
 }

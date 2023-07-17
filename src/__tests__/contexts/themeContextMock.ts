@@ -1,4 +1,4 @@
-import { ThemesContextData } from '@interfaces/themesContextData';
+import { ThemesContextData } from '@interfaces/contexts/themesContextData';
 
 export const themeContextMock: ThemesContextData = {
   toggleTheme: jest.fn(),

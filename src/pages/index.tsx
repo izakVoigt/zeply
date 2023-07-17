@@ -3,7 +3,9 @@ import { Search } from '@components/Search';
 import { TabsContainer } from '@components/TabsContainer';
 import { Header } from '@compounds/Header';
 import { useBtc } from '@hooks/useBtc';
-import { Box, Container, FormControl, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
+import { useMain } from '@hooks/useMain';
+import { useNotifications } from '@hooks/useNotifications';
+import { Box, Button, Container, FormControl, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
 import { getAddress, getTransaction } from '@services/api';
 import { CurrencyEnum } from '@utils/enums/currencyEnum';
 import { NextPage } from 'next';
@@ -15,12 +17,14 @@ const HomePage: NextPage = () => {
   const [currency, setCurrency] = useState(CurrencyEnum.BTC);
 
   const btcContext = useBtc();
+  const mainContext = useMain();
+  const notificationsContext = useNotifications();
 
   const handleAddressSearchClick = async () => {
     try {
       const data = await getAddress(addressSearch);
 
-      btcContext.updateAddress(data!);
+      btcContext.updateAddress(data!, addressSearch);
     } catch (error) {}
   };
 
@@ -28,7 +32,7 @@ const HomePage: NextPage = () => {
     try {
       const data = await getTransaction(transactionSearch);
 
-      btcContext.updateTransaction(data!.data, data!.time);
+      btcContext.updateTransaction(data!.data, data!.time, transactionSearch);
     } catch (error) {}
   };
 
@@ -60,7 +64,7 @@ const HomePage: NextPage = () => {
               </Select>
             </FormControl>
             <DataContainer>
-              {btcContext.address && btcContext.BTCtoEUR && btcContext.BTCtoUSD ? (
+              {btcContext.address && mainContext.BTCtoEUR && mainContext.BTCtoUSD ? (
                 <>
                   <Box>
                     <Typography>
@@ -70,29 +74,31 @@ const HomePage: NextPage = () => {
                     <Typography>
                       <strong>Total BTC Received: </strong>
                       {currency === CurrencyEnum.BTC && `BTC ${btcContext.address?.btcReceived}`}
-                      {currency === CurrencyEnum.USD && `$ ${btcContext.address?.btcReceived * btcContext.BTCtoUSD}`}
-                      {currency === CurrencyEnum.EUR && `£ ${btcContext.address?.btcReceived * btcContext.BTCtoEUR}`}
+                      {currency === CurrencyEnum.USD && `$ ${btcContext.address?.btcReceived * mainContext.BTCtoUSD}`}
+                      {currency === CurrencyEnum.EUR && `£ ${btcContext.address?.btcReceived * mainContext.BTCtoEUR}`}
                     </Typography>
                     <Typography>
                       <strong>Total BTC Spent: </strong>
                       {currency === CurrencyEnum.BTC && `BTC ${btcContext.address?.btcSpent}`}
-                      {currency === CurrencyEnum.USD && `$ ${btcContext.address?.btcSpent * btcContext.BTCtoUSD}`}
-                      {currency === CurrencyEnum.EUR && `£ ${btcContext.address?.btcSpent * btcContext.BTCtoEUR}`}
+                      {currency === CurrencyEnum.USD && `$ ${btcContext.address?.btcSpent * mainContext.BTCtoUSD}`}
+                      {currency === CurrencyEnum.EUR && `£ ${btcContext.address?.btcSpent * mainContext.BTCtoEUR}`}
                     </Typography>
                     <Typography>
                       <strong>Total BTC Unspent: </strong>
                       {currency === CurrencyEnum.BTC && `BTC ${btcContext.address?.btcUnspent}`}
-                      {currency === CurrencyEnum.USD && `$ ${btcContext.address?.btcUnspent * btcContext.BTCtoUSD}`}
-                      {currency === CurrencyEnum.EUR && `£ ${btcContext.address?.btcUnspent * btcContext.BTCtoEUR}`}
+                      {currency === CurrencyEnum.USD && `$ ${btcContext.address?.btcUnspent * mainContext.BTCtoUSD}`}
+                      {currency === CurrencyEnum.EUR && `£ ${btcContext.address?.btcUnspent * mainContext.BTCtoEUR}`}
                     </Typography>
                     <Typography>
                       <strong>Current address balance: </strong>
                       {currency === CurrencyEnum.BTC && `BTC ${btcContext.address?.finalBalance}`}
-                      {currency === CurrencyEnum.USD && `$ ${btcContext.address?.finalBalance * btcContext.BTCtoUSD}`}
-                      {currency === CurrencyEnum.EUR && `£ ${btcContext.address?.finalBalance * btcContext.BTCtoEUR}`}
+                      {currency === CurrencyEnum.USD && `$ ${btcContext.address?.finalBalance * mainContext.BTCtoUSD}`}
+                      {currency === CurrencyEnum.EUR && `£ ${btcContext.address?.finalBalance * mainContext.BTCtoEUR}`}
                     </Typography>
                   </Box>
-                  <div>Subscribe</div>
+                  <Button variant="contained" onClick={() => notificationsContext.subscribeAddress(addressSearch)}>
+                    Subscribe
+                  </Button>
                 </>
               ) : (
                 <></>
@@ -118,7 +124,7 @@ const HomePage: NextPage = () => {
               </Select>
             </FormControl>
             <DataContainer>
-              {btcContext.transaction && btcContext.BTCtoEUR && btcContext.BTCtoUSD ? (
+              {btcContext.transaction && mainContext.BTCtoEUR && mainContext.BTCtoUSD ? (
                 <Box>
                   <Typography>
                     <strong>Transactions Hash: </strong>
@@ -143,20 +149,20 @@ const HomePage: NextPage = () => {
                   <Typography>
                     <strong>Total BTC Input: </strong>
                     {currency === CurrencyEnum.BTC && `BTC ${btcContext.transaction.inputs}`}
-                    {currency === CurrencyEnum.USD && `$ ${btcContext.transaction.inputs * btcContext.BTCtoUSD}`}
-                    {currency === CurrencyEnum.EUR && `£ ${btcContext.transaction.inputs * btcContext.BTCtoEUR}`}
+                    {currency === CurrencyEnum.USD && `$ ${btcContext.transaction.inputs * mainContext.BTCtoUSD}`}
+                    {currency === CurrencyEnum.EUR && `£ ${btcContext.transaction.inputs * mainContext.BTCtoEUR}`}
                   </Typography>
                   <Typography>
                     <strong>Total BTC Output: </strong>
                     {currency === CurrencyEnum.BTC && `BTC ${btcContext.transaction.outputs}`}
-                    {currency === CurrencyEnum.USD && `$ ${btcContext.transaction.outputs * btcContext.BTCtoUSD}`}
-                    {currency === CurrencyEnum.EUR && `£ ${btcContext.transaction.outputs * btcContext.BTCtoEUR}`}
+                    {currency === CurrencyEnum.USD && `$ ${btcContext.transaction.outputs * mainContext.BTCtoUSD}`}
+                    {currency === CurrencyEnum.EUR && `£ ${btcContext.transaction.outputs * mainContext.BTCtoEUR}`}
                   </Typography>
                   <Typography>
                     <strong>Total Fees: </strong>
                     {currency === CurrencyEnum.BTC && `BTC ${btcContext.transaction.fees}`}
-                    {currency === CurrencyEnum.USD && `$ ${btcContext.transaction.fees * btcContext.BTCtoUSD}`}
-                    {currency === CurrencyEnum.EUR && `£ ${btcContext.transaction.fees * btcContext.BTCtoEUR}`}
+                    {currency === CurrencyEnum.USD && `$ ${btcContext.transaction.fees * mainContext.BTCtoUSD}`}
+                    {currency === CurrencyEnum.EUR && `£ ${btcContext.transaction.fees * mainContext.BTCtoEUR}`}
                   </Typography>
                 </Box>
               ) : (

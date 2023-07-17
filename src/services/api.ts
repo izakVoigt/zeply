@@ -3,9 +3,9 @@ import { IAddress } from '@interfaces/address';
 import { errorHandler } from '@utils/errorHandler';
 import axios from 'axios';
 
-const apiBlockchain = axios.create({ baseURL: process.env.NEXT_APP_BLOCKCHAIN_API });
+const apiBlockchain = axios.create({ baseURL: 'https://blockchain.info' });
 
-const apiCoinMarket = axios.create({ baseURL: process.env.NEXT_APP_COINMARKET_API });
+const apiCoinMarket = axios.create({ baseURL: 'https://api.coingecko.com/api/v3' });
 
 export const getAddress = async (address: string) => {
   try {

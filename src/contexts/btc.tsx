@@ -1,9 +1,9 @@
-import { IAddress, IAddressWebsocket } from '@interfaces/address';
+import { IAddress } from '@interfaces/address';
 import { IBtcAddress, IBtcTransaction } from '@interfaces/btc';
 import { IChildren } from '@interfaces/children';
 import { BtcContextData } from '@interfaces/contexts/btcContextData';
 import { ITransaction } from '@interfaces/transaction';
-import { createContext, useCallback, useEffect, useState } from 'react';
+import { createContext, useCallback, useState } from 'react';
 
 export const BtcContext = createContext<BtcContextData>({} as BtcContextData);
 
@@ -42,22 +42,6 @@ export const BtcContextProvider = ({ children }: IChildren) => {
     },
     [searches]
   );
-
-  // useEffect(() => {
-  //   const handleWebSocketMessage = (message: JSON) => {
-  //     const messageData: IAddressWebsocket = JSON.parse(String(message));
-
-  //     if (messageData.op === 'utx') {
-  //       setTransactions((prevTransactions) => [...prevTransactions, messageData.x.hash]);
-  //     }
-  //   };
-
-  //   const client = connectWebsocket(handleWebSocketMessage);
-
-  //   return () => {
-  //     client.abort();
-  //   };
-  // }, []);
 
   return (
     <BtcContext.Provider value={{ searches, address, transaction, updateAddress, updateTransaction }}>

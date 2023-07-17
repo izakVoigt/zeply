@@ -1,5 +1,7 @@
+import { useMain } from '@hooks/useMain';
+import { IAddressWebsocket } from '@interfaces/address';
 import { NotificationsContextData } from '@interfaces/contexts/notificationsContextData';
-import { ReactNode, createContext, useCallback, useState } from 'react';
+import { ReactNode, createContext, useCallback, useEffect, useState } from 'react';
 
 export const NotificationsContext = createContext<NotificationsContextData>({} as NotificationsContextData);
 
@@ -10,6 +12,18 @@ export const NotificationsContextProvider = ({ children }: { children: ReactNode
   });
   const { addresses, notifications } = state;
 
+  const mainContext = useMain();
+
+  const handleMessage = useCallback((event: MessageEvent<any>) => {
+    const parsedMessage: IAddressWebsocket = JSON.parse(event.data);
+    const hash = parsedMessage.x.hash;
+
+    setState((prevState) => ({
+      ...prevState,
+      notifications: [...prevState.notifications, hash],
+    }));
+  }, []);
+
   const removeNotification = useCallback((hash: string) => {
     setState((prevState) => ({
       ...prevState,
@@ -17,9 +31,42 @@ export const NotificationsContextProvider = ({ children }: { children: ReactNode
     }));
   }, []);
 
-  const subscribeAddress = useCallback((hash: string) => {}, []);
+  const subscribeAddress = useCallback(
+    (hash: string) => {
+      if (mainContext.connection) {
+        mainContext.connection.send(JSON.stringify({ op: 'addr_sub', addr: hash }));
 
-  const unsubscribeAddress = useCallback((hash: string) => {}, []);
+        setState((prevState) => ({ ...prevState, addresses: [...prevState.addresses, hash] }));
+      }
+    },
+    [mainContext.connection]
+  );
+
+  const unsubscribeAddress = useCallback(
+    (hash: string) => {
+      if (mainContext.connection) {
+        mainContext.connection.send(JSON.stringify({ op: 'addr_unsub', addr: hash }));
+
+        setState((prevState) => ({
+          ...prevState,
+          addresses: prevState.addresses.filter((address) => address !== hash),
+        }));
+      }
+    },
+    [mainContext.connection]
+  );
+
+  useEffect(() => {
+    if (mainContext.connection) {
+      mainContext.connection.addEventListener('message', handleMessage);
+    }
+
+    return () => {
+      if (mainContext.connection) {
+        mainContext.connection.removeEventListener('message', handleMessage);
+      }
+    };
+  }, [mainContext.connection, handleMessage]);
 
   return (
     <NotificationsContext.Provider

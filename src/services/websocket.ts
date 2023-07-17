@@ -1,24 +1,15 @@
 import { errorHandler } from '@utils/errorHandler';
-import WebSocket from 'websocket';
 
-const connectWebsocket = () => {
-  const client = new WebSocket.client();
+const connectWebsocket = (onConnect: (connection: WebSocket) => void): WebSocket => {
+  const client = new WebSocket('wss://ws.blockchain.info/inv');
 
-  client.on('connectFailed', (error) => {
+  client.onopen = () => {
+    onConnect(client);
+  };
+
+  client.onerror = (error) => {
     errorHandler(error);
-  });
-
-  client.on('connect', (connection) => {
-    console.log('OK');
-
-    connection.on('error', (error) => {
-      errorHandler(error);
-    });
-
-    connection.on('message', (message) => {});
-  });
-
-  client.connect(process.env.NEXT_APP_BLOCKCHAIN_WEBSOCKET!);
+  };
 
   return client;
 };
